@@ -1,17 +1,14 @@
 
-import feedfinder as feedfind
 import urllib2 as url
 import xml.etree.ElementTree as ET
+import json
 
-'''
-return the xml string for the input url
-'''
 appName = 'WuLu'
 
-def getXmlFromUrl(url_addr):
-    # TODO make sure to ask user for which feed
-    # (call feedfind.feeds() not feed)
-    page = url.urlopen(feedfind.feed(url_addr))
+def getPodcastXmlFromUrl(url_addr):
+    ''' given an rss feed url, parse and create a pocast rss xml. '''
+
+    page = url.urlopen()
     string = ''
     for line in page:
     	string += line

@@ -5,3 +5,17 @@ NDEV mobile: speech enabling your apps
 VIDEO STREAMING:
 tokbox -- bit.ly/tbpenn
   A sweet video streaming service! Uses javascript
+
+Summly:
+  A website summarize
+  --> source: Brett from ink
+
+
+voice bunny (new voice app)
+  --> theycallmeswift@gmail.com for hook-up with CEO
+
+mechanical turk
+
+ask people to read articles for us.
+
+Google Text to Speech Engine (Android?)
