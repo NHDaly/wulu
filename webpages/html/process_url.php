@@ -17,7 +17,7 @@ if($count==0)
 else #if($count==1)
 {
 
-	$directory="/var/www/podcasts/";
+	$directory="sudo /var/www/podcasts/";
   $folder_name=preg_replace("/[^A-Za-z0-9 ]/", '', $url_json_obj[0]);
 
 	$directory=$directory.$folder_name;	
