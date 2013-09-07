@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> a46a85ceb803988503ef7cb764fea47dc84b73ca
 import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
@@ -20,13 +24,19 @@ def createPodcastXml(url_addr):
     tree = ET.fromstring(xmlString)
     #get items out of tree, add to database w/ entry from
     #item title to item link
+
     #deleting all items in podcastXML
     for chan in tree:
+        chan.find('title').text+= ' '+ appName + ' Audio Podcast'
         for item in chan.findall('item'):
            # itemsFile.write(ET.tostring(item)+'\n')
-            chan.remove(item)
-        #append to title    
-        chan.find('title').text+= ' '+ appName + ' Audio Podcast'
+           articleTitle = item.find('title').text
+           articleUrl = item.find('link').text
+          
+        #   os.system('php -f ../../webpages/html/addEpToDb.php' +' '+
+         #              articleTitle+' '+ articleUrl)
+           chan.remove(item)
+           #append to title    
     return ET.tostring(tree)
 
 
