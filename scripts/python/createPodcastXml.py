@@ -29,16 +29,16 @@ def createPodcastXml(url_addr):
            articleTitle = item.find('title').text
            articleUrl = item.find('link').text
            articlePubDate = item.find('pubDate').text
-           articleList.append({'rss_url':rssUrl,'title':articleTitle,'site_url':articleUrl,'pub_date':articlePubDate}) 
+           articleList.append({'title':articleTitle,'site_url':articleUrl,'pub_date':articlePubDate}) 
            chan.remove(item)
            #append to title    
     return json.dumps({'XML':ET.tostring(tree),'episodes':articleList})
 
 
 if __name__ == "__main__": 
-    try:
+    #try:
       print createPodcastXml(argv[1])
       #print argv[1]
-    except :
-      print "ERRORRRRR!"
+    #except :
+     # print "ERRORRRRR!"
 
