@@ -1,15 +1,14 @@
 Create Table Podcasts
 (
-	podcast			VARCHAR(256),
-	PRIMARY KEY (podcast)
+	rss_url			VARCHAR(256),
+	PRIMARY KEY (rss_url)
 );
 
 Create Table Episodes
 (
-	podcast			VARCHAR(256),
+  rss_url			VARCHAR(256),
 	title				VARCHAR(256),
 	site_url		VARCHAR(256),
 	audio_url		VARCHAR(256),
-	pubdate			TIMESTAMP,
-	PRIMARY KEY (title)
+	pub_date		VARCHAR(256)	
 );

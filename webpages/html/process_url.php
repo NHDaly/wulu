@@ -31,7 +31,7 @@ else #if($count==1)
 	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
 
-	$query_podcast="SELECT * FROM Podcasts WHERE podcast='".$folder_name."'";	
+	$query_podcast="SELECT * FROM Podcasts WHERE rss_url='".$folder_name."'";	
 
 	$result=mysql_query($query_podcast, $db_cxn);
 	$row=mysql_fetch_array($result);
@@ -48,7 +48,8 @@ else #if($count==1)
 
 	$xml_json_str=exec('python ../../scripts/python/createPodcastXml.py '.$url_json_obj[0]);
 	
-
+	echo 'python ../../scripts/python/createPodcastXml.py '.$url_json_obj[0]."<br>";
+	
 	$xml_json_obj=json_decode($xml_json_str, true);
 
 	if(!$row)
@@ -58,17 +59,30 @@ else #if($count==1)
 	}
 
 	for($i=0; $i<count($xml_json_obj['episodes']); $i++)
-	{
-		echo $xml_json_obj['episodes'][$i]['title']."<br>";
+	{ 
+    # once you have the args to add to database, run this command
+		# ... presumably you'll get this from json or something
+#    $spawnstring = "bash -c 'exec nohup php addeptodb.php ".$folder_name." \"".$xml_json_obj['episodes'][$i]['title']."\" ".$xml_json_obj['episodes'][$i]['site_url']." \"".$xml_json_obj['episodes'][$i]['pub_date']."\" < /dev/null > /dev/null 2>&1 &'";
 
+		$query_episode= "SELECT * FROM Episodes WHERE rss_url='".$folder_name."' AND title='".$xml_json_obj['episodes'][$i]['title']."' AND pub_date='".$xml_json_obj['episodes'][$i]['pub_date']."'";
+
+		echo $query_episode."<br>";
+
+		$result=mysql_query($query_episode, $db_cxn);
+
+		$row=mysql_fetch_array($result);
+
+
+		if(!$row)
+		{
+			$spawnstring = 'php addEpToDb.php '.$folder_name.' "'.$xml_json_obj['episodes'][$i]['title'].'" '.$xml_json_obj['episodes'][$i]['site_url'].' "'.$xml_json_obj['episodes'][$i]['pub_date'].'" ';
+
+			echo $spawnstring."<br>";
+			exec($spawnstring); 
+		}
 	}
 
 
-    # once you have the args to add to database, run this command
-    #$args = "" 
-		# ... presumably you'll get this from json or something
-    #$spawnString = 'bash -c "exec nohup php addEpToDb.php '.$args.' < /dev/null > /dev/null 2>&1 &"';
-    #exec($spawnString);
 }
 
 
