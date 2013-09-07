@@ -2,8 +2,8 @@
 # argv[1] = title
 # argv[2] = site url
 // Replace with proper user, password, and host.
-$user = 'wulu'; 
-$password = 'wulu';
+$user = 'root'; 
+$password = 'pennapps2013';
 $link = mysql_connect('localhost', $user, $password) or die(mysql_error());;
 @mysql_select_db("wuludb", $link) or die('Could not connect: ' . mysql_error());
 // Check connection.

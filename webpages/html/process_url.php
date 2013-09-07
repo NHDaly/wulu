@@ -25,8 +25,8 @@ else #if($count==1)
 
 	$directory=$directory.$folder_name;	
 
-	$db_user="wulu";
-	$db_password="wulu";
+	$db_user="root";
+	$db_password="pennapps2013";
 	$database="wuludb"; 
 	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
@@ -79,6 +79,8 @@ else #if($count==1)
 
 			echo $spawnstring."<br>";
 			exec($spawnstring); 
+
+
 		}
 	}
 
