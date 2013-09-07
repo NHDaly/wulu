@@ -15,12 +15,17 @@ $count=count($obj);
 echo "length: ".$count."<br>";
 
 #assume count is one
-
-$string='python ../../scripts/python/createPodcastXml.py '.$obj[0];
-echo $string. "<br>";
-$xml=exec($string);
-var_dump($xml);
-
+if($count==0)
+{ 
+	header('Location: ./index.php?warning=1');
+}
+else #if($count==1)
+{
+	$string='python ../../scripts/python/createPodcastXml.py '.$obj[0];
+	echo $string. "<br>";
+	$xml=exec($string);
+	var_dump($xml);
+}
 
 
 
