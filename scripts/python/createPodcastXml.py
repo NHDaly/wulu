@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import os
->>>>>>> a46a85ceb803988503ef7cb764fea47dc84b73ca
 import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
@@ -42,7 +39,7 @@ def createPodcastXml(url_addr):
 
 if __name__ == "__main__": 
     try:
-      print createPodcastXml(argv[1])
+      print json.dumps(createPodcastXml(argv[1]))
       #print argv[1]
     except :
       print "ERRORRRRR!"
