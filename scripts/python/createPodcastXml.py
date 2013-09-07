@@ -2,13 +2,14 @@
 import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
+from sys import argv
 
 appName = 'WuLu'
 
 def getPodcastXmlFromUrl(url_addr):
     ''' given an rss feed url, parse and create a pocast rss xml. '''
 
-    page = url.urlopen()
+    page = url.urlopen(url_addr)
     string = ''
     for line in page:
     	string += line
@@ -16,7 +17,7 @@ def getPodcastXmlFromUrl(url_addr):
     return string
 
 def createPodcastXml(url_addr):
-    xmlString=getXmlFromUrl(url_addr)
+    xmlString=getPodcastXmlFromUrl(url_addr)
     tree = ET.fromstring(xmlString)
     #get items out of tree, add to database w/ entry from
     #item title to item link
@@ -31,7 +32,6 @@ def createPodcastXml(url_addr):
     return ET.tostring(tree)
 
 
-from sys import argv
 
 if __name__ == "__main__":
     try:

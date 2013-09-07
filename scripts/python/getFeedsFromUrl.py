@@ -1,6 +1,7 @@
 
 import feedfinder as feedfind
 import json
+from sys import argv
 
 def getFeedsFromUrl(url_addr):
     ''' Checks url_addr for any rss feeds and returns their '''\
@@ -9,4 +10,9 @@ def getFeedsFromUrl(url_addr):
     feeds = feedfind.feeds(url_addr)
     return json.dumps(feeds)
 
+if __name__ == "__main__":
+    try:
+    	print getFeedsFromUrl(argv[1])
+    except :
+        print "ERRORRRRR!"
 
