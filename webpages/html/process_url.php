@@ -23,8 +23,8 @@ else #if($count==1)
 {
 	$string='python ../../scripts/python/createPodcastXml.py '.$obj[0];
 	echo $string. "<br>";
-	$xml=exec($string);
-	var_dump($xml);
+	$json=exec($string);
+	var_dump($json);
 }
 
 

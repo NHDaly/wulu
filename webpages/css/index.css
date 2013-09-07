@@ -70,3 +70,12 @@ body
 	cursor: pointer;
 }
 
+#warning
+{
+	position: relative;
+	top: 240px;
+	font-family: museo_slab;
+	color: red;
+	font-size: 30;
+}
+

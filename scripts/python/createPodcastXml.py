@@ -36,7 +36,7 @@ def createPodcastXml(url_addr):
 
 if __name__ == "__main__": 
     try:
-      print createPodcastXml(argv[1]))
+      print createPodcastXml(argv[1])
       #print argv[1]
     except :
       print "ERRORRRRR!"
