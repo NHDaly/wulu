@@ -7,11 +7,11 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 # Run python script.
 $url = $_POST["url"];
-$json = exec('python ../../scripts/python/getFeedsFromUrl.py ' . $url); 
-echo $json."<br>";
+$url_json = exec('python ../../scripts/python/getFeedsFromUrl.py ' . $url); 
+echo $url_json."<br>";
 
-$obj=json_decode($json);
-$count=count($obj);
+$url_obj=json_decode($url_json);
+$count=count($url_obj);
 echo "length: ".$count."<br>";
 
 #assume count is one
@@ -21,10 +21,13 @@ if($count==0)
 }
 else #if($count==1)
 {
-	$string='python ../../scripts/python/createPodcastXml.py '.$obj[0];
+	$string='python ../../scripts/python/createPodcastXml.py '.$url_obj[0];
 	echo $string. "<br>";
-	$json=exec($string);
-	var_dump($json);
+	$xml_json=exec($string);
+	#var_dump($xml_json);
+	$xml_obj=json_decode($xml_json);
+	echo $xml_obj['XML'];
+
 
     # once you have the args to add to database, run this command
     $args = "" # ... presumably you'll get this from json or something
