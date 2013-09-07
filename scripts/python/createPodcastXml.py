@@ -26,9 +26,11 @@ def createPodcastXml(url_addr):
         chan.find('title').text+= ' '+ appName + ' Audio Podcast'
         for item in chan.findall('item'):
            # itemsFile.write(ET.tostring(item)+'\n')
+           rssUrl = url_addr
            articleTitle = item.find('title').text
            articleUrl = item.find('link').text
-           articleList.append({'title':articleTitle,'site_url':articleUrl}) 
+           articlePubDate = item.find('pubDate').text
+           articleList.append({'rss_url':rssUrl,'title':articleTitle,'site_url':articleUrl,'pub_date':articlePubDate}) 
            chan.remove(item)
            #append to title    
     return json.dumps({'XML':ET.tostring(tree),'episodes':articleList})
