@@ -11,6 +11,7 @@ $link = mysql_connect($host, $user, $password) or die(mysql_error());;
 if (mysqli_connect_errno($link)){
         echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
+// Insert title and site_url to the database
 $query  = "INSERT INTO Episodes (title, site_url) Values ('" . $argv[1] . "', '" . $argv[2] . "')";
 $result = mysql_query($query);
 if (!$result) {
