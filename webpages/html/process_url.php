@@ -27,7 +27,7 @@ else #if($count==1)
 	$db_user="root";
 	$db_password="pennapps2013";
 	$database="wuludb"; 
-	$db_cxn = pdo_connect('localhost', $db_user, $db_password); 
+	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
 
 	$query_podcast="SELECT * FROM Podcasts WHERE rss_url='".$folder_name."'";	
