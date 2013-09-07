@@ -42,13 +42,13 @@ body
 {
 	position: relative;
 	top: -75px;
-	margin-left: 200px;
+	margin-left: 10%;
 }
 
 #url_input
 {
 	height: 45px;
-	width: 700px;
+	width: 60%;
 	font-family: museo_slab;
 	color: #c4c4c4;
 	font-size:35;

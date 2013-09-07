@@ -7,6 +7,20 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 # Run python script.
 $url = $_POST["url"];
-$result = exec('python ../../scripts/python/getrssfeed.py ' . $url);
-echo $result;
+$json = exec('python ../../scripts/python/getFeedsFromUrl.py ' . $url); 
+echo $json."<br>";
+
+$obj=json_decode($json);
+$count=count($obj);
+echo "length: ".$count."<br>";
+
+#assume count is one
+
+$string='python ../../scripts/python/createPodcastXml.py '.$obj[0];
+echo $string. "<br>";
+$xml=exec($string);
+var_dump($xml);
+
+
+
 ?>

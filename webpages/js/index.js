@@ -25,7 +25,6 @@ $(document).ready(function(){
 		}
 
 
-		return false;
 	});
 
 	$("#url_submit_button").click(function(){
