@@ -1,9 +1,11 @@
 
 from goose import Goose
+from sys import argv 
+import json
 
 g = Goose()
 
 # NOTE, on error this will return ''. Caller should check for this
 # and not try to text-to-speech it.
-print g.extract('http://rss.cnn.com/~r/rss/cnn_topstories/~3/-d862QE5E7U/index.html').cleaned_text
+print json.dumps(g.extract(argv[1]).cleaned_text)
 
