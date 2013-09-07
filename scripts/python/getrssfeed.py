@@ -1,5 +1,5 @@
 
-import feedfinder as feed
+import feedfinder as feedfind
 import urllib2 as url
 import xml.etree.ElementTree as ET
 
@@ -9,7 +9,9 @@ return the xml string for the input url
 appName = 'WuLu'
 
 def getXmlFromUrl(url_addr):
-    page = url.urlopen(feed.feed(url_addr))
+    # TODO make sure to ask user for which feed
+    # (call feedfind.feeds() not feed)
+    page = url.urlopen(feedfind.feed(url_addr))
     string = ''
     for line in page:
     	string += line
@@ -21,7 +23,7 @@ def createPodcastXml(url_addr):
     tree = ET.fromstring(xmlString)
     #get items out of tree, add to database w/ entry from
     #item title to item link
-    with open('itemsDb','wa') as itemsFile: 
+    with open('itemsDb','a') as itemsFile: 
         #deleting all items in podcastXML
         for chan in tree:
             for item in chan.findall('item'):
@@ -30,3 +32,10 @@ def createPodcastXml(url_addr):
             #append to title    
             chan.find('title').text+= ' '+ appName + ' Audio Podcast'
     return ET.tostring(tree)
+
+
+from sys import argv
+
+if __name__ == 'main':
+	createPodcastXml(argv[1])
+
