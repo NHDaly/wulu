@@ -39,6 +39,6 @@ from sys import argv
 if __name__ == "__main__":
     try:
     	print createPodcastXml(argv[1])
-    except Exception, e:
-        print "ERRORRRRR!", e
+    except :
+        print "ERRORRRRR!"
 
