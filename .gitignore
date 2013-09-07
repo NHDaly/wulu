@@ -17,3 +17,7 @@
 *.swp
 *.lock
 
+
+# Python
+*.pyc
+
