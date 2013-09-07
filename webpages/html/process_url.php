@@ -25,6 +25,11 @@ else #if($count==1)
 	echo $string. "<br>";
 	$json=exec($string);
 	var_dump($json);
+
+    # once you have the args to add to database, run this command
+    $args = "" # ... presumably you'll get this from json or something
+    $spawnString = 'bash -c "exec nohup php addEpToDb.php '.$args.' < /dev/null > /dev/null 2>&1 &"';
+    exec($spawnString);
 }
 
 
