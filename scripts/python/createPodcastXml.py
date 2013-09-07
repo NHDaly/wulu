@@ -1,4 +1,4 @@
-
+import os
 import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
@@ -26,6 +26,11 @@ def createPodcastXml(url_addr):
         for chan in tree:
             for item in chan.findall('item'):
                 itemsFile.write(ET.tostring(item)+'\n')
+                articleTitle = item.find('title').text
+                articleUrl = item.find('link').text
+                
+                os.system('php -f ../../webpages/html/addEpToDb.php' +' '+
+                    articleTitle+' '+ articleUrl)
                 chan.remove(item)
             #append to title    
             chan.find('title').text+= ' '+ appName + ' Audio Podcast'
