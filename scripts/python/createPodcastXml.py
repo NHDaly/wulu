@@ -1,4 +1,3 @@
-
 import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
@@ -21,21 +20,20 @@ def createPodcastXml(url_addr):
     tree = ET.fromstring(xmlString)
     #get items out of tree, add to database w/ entry from
     #item title to item link
-    with open('itemsDb','a') as itemsFile: 
-        #deleting all items in podcastXML
-        for chan in tree:
-            for item in chan.findall('item'):
-                itemsFile.write(ET.tostring(item)+'\n')
-                chan.remove(item)
-            #append to title    
-            chan.find('title').text+= ' '+ appName + ' Audio Podcast'
+    #deleting all items in podcastXML
+    for chan in tree:
+        for item in chan.findall('item'):
+           # itemsFile.write(ET.tostring(item)+'\n')
+            chan.remove(item)
+        #append to title    
+        chan.find('title').text+= ' '+ appName + ' Audio Podcast'
     return ET.tostring(tree)
 
 
-
-if __name__ == "__main__":
+if __name__ == "__main__": 
     try:
-    	print createPodcastXml(argv[1])
+      print createPodcastXml(argv[1])
+      #print argv[1]
     except :
-        print "ERRORRRRR!"
+      print "ERRORRRRR!"
 
