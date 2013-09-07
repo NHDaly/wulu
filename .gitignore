@@ -1,0 +1,19 @@
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# OS X temporary files that should never be committed
+.DS_Store
+*.swp
+*.lock
+
