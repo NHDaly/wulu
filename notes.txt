@@ -1,0 +1,7 @@
+easy rss
+NDEV mobile: speech enabling your apps
+ -- speech recognition and speech synthesis (but on mobile-device)
+
+VIDEO STREAMING:
+tokbox -- bit.ly/tbpenn
+  A sweet video streaming service! Uses javascript
