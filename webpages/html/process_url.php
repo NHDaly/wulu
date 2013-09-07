@@ -1,8 +1,4 @@
 <?php
-# echo "url : " . $_POST["url"];
-# $content = file_get_contents('http://tts-api.com/tts.mp3?q=hello+nathan');
-# $file = "sound.mp3";
-# file_put_contents($file, $content);
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 # Run python script.
@@ -79,6 +75,20 @@ else #if($count==1)
 
 			echo $spawnstring."<br>";
 			exec($spawnstring); 
+
+			
+
+			$article_json_str = exec('python ../../scripts/python/urlToArticleText.py ' . $xml_json_obj['episodes'][$i]['site_url']); 
+			$article_json_obj = json_decode($article_json_str, true);
+			#make sure to check for null
+
+			echo urlencode($article_json_obj);
+
+
+			$tts_url='http://tts-api.com/tts.mp3?q='.urlencode($article_json_obj);
+			$content = file_get_contents($tts_url);
+			$file = $directory."/sound".$i.".mp3";
+			file_put_contents($file, $content);
 
 
 		}
