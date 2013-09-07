@@ -17,7 +17,7 @@ if($count==0)
 else #if($count==1)
 {
 
-	$directory="sudo /var/www/podcasts/";
+	$directory="/var/www/podcasts/";
   $folder_name=preg_replace("/[^A-Za-z0-9 ]/", '', $url_json_obj[0]);
 
 	$directory=$directory.$folder_name;	
@@ -36,7 +36,7 @@ else #if($count==1)
 	if(!$row)
 	{ 
 		echo "creating new directory: ".$directory." <br>";
-		exec('mkdir -p '.$directory); 
+		exec('sudo mkdir -p '.$directory); 
 		$insert_podcast="INSERT INTO Podcasts VALUES ('".$folder_name."')";
 		mysql_query($insert_podcast, $db_cxn);
 	}
