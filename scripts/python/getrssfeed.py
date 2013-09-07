@@ -36,6 +36,9 @@ def createPodcastXml(url_addr):
 
 from sys import argv
 
-if __name__ == 'main':
-	createPodcastXml(argv[1])
+if __name__ == "__main__":
+    try:
+    	print createPodcastXml(argv[1])
+    except e:
+        print "ERRORRRRR!", e
 
