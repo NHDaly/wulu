@@ -7,7 +7,9 @@ function isValidURL(url)
 
 $(document).ready(function(){
 
-	$("#loader").hide();
+	$("#loader").hide(); 
+	$("#warning").hide();
+
 	$("#url_input").click(function(){
 		$("#url_input").attr("value", "");
 		$("#url_input").css("color", "black");
