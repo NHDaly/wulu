@@ -24,6 +24,7 @@
 				<span id="url_submit_button">Submit</span>
 				<input id="url_submit" type="submit">
 			</form>
+			<span id="result"> </span>
 	</body>
 
 </html>
