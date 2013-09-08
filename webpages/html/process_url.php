@@ -38,7 +38,8 @@ else #if($count==1)
 		echo "creating new directory: ".$directory." <br>";
 		mkdir($directory); 
 		$insert_podcast="INSERT INTO Podcasts VALUES ('".$folder_name."')";
-		mysql_query($insert_podcast, $db_cxn);
+		mysql_query($insert_podcast, $db_cxn) or die($insert_podcast."<br/><br/>".mysql_error());
+
 	}
 
 
@@ -65,7 +66,7 @@ else #if($count==1)
 
 		echo $query_episode."<br>";
 
-		$result=mysql_query($query_episode, $db_cxn);
+		$result=mysql_query($query_episode, $db_cxn) or die($query_episode."<br/><br/>".mysql_error());
 
 		$row=mysql_fetch_array($result);
 
