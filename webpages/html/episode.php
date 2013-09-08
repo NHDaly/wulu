@@ -46,6 +46,8 @@ if(!$row)
 	$insert_audio_file_path="UPDATE Episodes SET audio_url='".$file."' WHERE rss_url='".$rss_url."' AND title='".$title."' AND pub_date='".$pub_date."'";
 
 	mysql_query($insert_audio_file_path, $db_cxn) or die($query_episode."<br/><br/>".mysql_error()); 
+
+	exec("python updatePodcastWithDatabase.py ".$rss_url." ".$title." ".$audio_name." ".$pub_date);
 }
 
 
