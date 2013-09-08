@@ -29,7 +29,7 @@ $(document).ready(function(){
 			data: {url: $("#url_input").val()},
 			dataType: "text/plain",
 			success: function(ret){
-
+				alert("success");
 				if(ret=="no_rss")
 				{
 					alert("no_rss");
@@ -41,6 +41,11 @@ $(document).ready(function(){
 
 				$("#loader").hide();
 				return false;
+			},
+			error: function(a,b,c)
+			{
+				alert(c);
+
 			}
 		});
 
