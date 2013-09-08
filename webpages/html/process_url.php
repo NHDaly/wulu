@@ -36,7 +36,7 @@ else #if($count==1)
 	if(!$row)
 	{ 
 		echo "creating new directory: ".$directory." <br>";
-		exec('sudo mkdir -p '.$directory); 
+		mkdir($directory); 
 		$insert_podcast="INSERT INTO Podcasts VALUES ('".$folder_name."')";
 		mysql_query($insert_podcast, $db_cxn);
 	}
