@@ -27,6 +27,7 @@ $(document).ready(function(){
 			type: "POST",
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
+			dataType: "text",
 			success: function(ret){
 				alert("hi");
 				if(ret=="no_rss")
