@@ -32,7 +32,7 @@ def updatePodcastXml(rss_url, title, audio_filename, pubDate):
      audio_web_url = webUrl + rss_url +'/'+ audio_filename
 
      #TODO Find length of audio file -- should we do this in php when adding to database?
-     it_enclosure = ET.SubElement(item, 'enclosure', {'url':audio_web_url, 'length':"12321",
+     it_enclosure = ET.SubElement(item, 'enclosure', {'url':audio_web_url, 'length':"2000000",
                                                       'type':'audio/x-mp3'})
      #TODO guid
      

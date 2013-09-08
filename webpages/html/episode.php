@@ -35,7 +35,8 @@ if(!$row)
 	#make sure to check for null
      
     #TODO get Unsquashed title
-    $episode_text = urlencode($title).'+,,+'.urlencode($article_json_obj);
+    #$episode_text = urlencode($title).'+,,,+'.urlencode($article_json_obj);
+    $episode_text = urlencode($article_json_obj);
 
 	$tts_url='http://tts-api.com/tts.mp3?q='.$episode_text;
 	$content = file_get_contents($tts_url);
