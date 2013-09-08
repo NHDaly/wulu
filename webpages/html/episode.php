@@ -6,8 +6,8 @@
 	$site_url=$argv[4];
 	$pub_date=$argv[5];
 
-	$db_user="wulu";
-	$db_password="wulu";
+	$db_user="root";
+	$db_password="pennapps2013";
 	$database="wuludb"; 
 	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
