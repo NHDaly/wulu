@@ -79,3 +79,11 @@ body
 	font-size: 30;
 }
 
+#result
+{
+	padding-left:10%;
+	font-family: museo_slab; 
+	color: #848484;
+	font-size: 30; 
+}
+
