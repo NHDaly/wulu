@@ -21,8 +21,8 @@ else #if($count==1)
 
 	$directory=$directory.$folder_name;	
 
-	$db_user="root";
-	$db_password="pennapps2013";
+	$db_user="wulu";
+	$db_password="wulu";
 	$database="wuludb"; 
 	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
@@ -62,7 +62,7 @@ else #if($count==1)
 
 		$query_episode= "SELECT * FROM Episodes WHERE rss_url='".$folder_name."' AND title='".$xml_json_obj['episodes'][$i]['title']."' AND pub_date='".$xml_json_obj['episodes'][$i]['pub_date']."'";
 
-		echo $query_episode."<br>";
+		#echo $query_episode."<br>";
 
 		$result=mysql_query($query_episode, $db_cxn);
 
@@ -73,7 +73,7 @@ else #if($count==1)
 		{
 			$spawnstring = 'php addEpToDb.php '.$folder_name.' "'.$xml_json_obj['episodes'][$i]['title'].'" '.$xml_json_obj['episodes'][$i]['site_url'].' "'.$xml_json_obj['episodes'][$i]['pub_date'].'" ';
 
-			echo $spawnstring."<br>";
+			#echo $spawnstring."<br>";
 			exec($spawnstring); 
 
 			
@@ -82,17 +82,24 @@ else #if($count==1)
 			$article_json_obj = json_decode($article_json_str, true);
 			#make sure to check for null
 
-			echo urlencode($article_json_obj);
+			#echo urlencode($article_json_obj);
 
 
 			$tts_url='http://tts-api.com/tts.mp3?q='.urlencode($article_json_obj);
 			$content = file_get_contents($tts_url);
-			$file = $directory."/sound".$i.".mp3";
+			$audio_name=$folder_name."-".preg_replace("/[^A-Za-z0-9]/", '', $xml_json_obj['episodes'][$i]['title']).".mp3";
+			$file = $directory."/".$audio_name;
+			echo $audio_name."<br>";
 			file_put_contents($file, $content);
+			
+			$insert_audio_file_path="UPDATE Episodes SET audio_url='".$file."' WHERE rss_url='".$folder_name."' AND title='".$xml_json_obj['episodes'][$i]['title']."' AND pub_date='".$xml_json_obj['episodes'][$i]['pub_date']."'";
 
-
+			mysql_query($insert_audio_file_path, $db_cxn); 
 		}
 	}
+
+  
+	header('Location: ./end.php');
 
 
 }
