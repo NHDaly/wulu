@@ -28,6 +28,7 @@ $(document).ready(function(){
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
 			success: function(ret){
+				alert("hi");
 				if(ret=="no_rss")
 				{
 					alert("no_rss");
