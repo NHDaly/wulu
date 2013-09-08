@@ -1,0 +1,81 @@
+@font-face
+{
+	font-family:league_gothic;
+
+	src: url('../fonts/league_gothic/LeagueGothic-CondensedRegular.otf') format("opentype");
+	/*
+	src: url('../fonts/league_gothic/webfonts/leaguegothic-condensed-regular-webfont.ttf'),
+	url('../fonts/league_gothic/webfonts/leaguegothic-condensed-regular-webfont.eot'); 
+	*/
+}
+@font-face
+{
+	font-family:lobster;
+	src: url('../fonts/lobster/Lobster_1.3.otf') format("opentype");
+}
+@font-face
+{
+	font-family:museo_slab;
+	src: url('../fonts/museo_slab/webfonts/museoslab_500_macroman/Museo_Slab_500-webfont.ttf'),
+	url('../fonts/museo_slab/webfonts/lmuseoslab_500_macroman/Museo_Slab_500-webfont.eot'); 
+}
+
+body
+{
+	background-image: url('../images/gradient_blue.jpg');
+	background-size: 100%;
+	padding: 0;
+	margin: 0;
+
+}
+
+#url_form_wrapper
+{
+	margin-top:300px;
+	height: 100px;
+	width: 100%;
+	background-color: black;
+	opacity: 0.3;
+}
+
+#url_form
+{
+	position: relative;
+	top: -75px;
+	margin-left: 10%;
+}
+
+#url_input
+{
+	height: 45px;
+	width: 60%;
+	font-family: museo_slab;
+	color: #c4c4c4;
+	font-size:35;
+}
+
+#url_submit
+{
+	visibility:hidden;
+}
+
+#url_submit_button
+{
+	font-family: lobster;
+	font-size: 40;
+	color: #848484;
+	padding: 3px;
+	border: 2px solid #848484;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#warning
+{
+	position: relative;
+	top: 240px;
+	font-family: museo_slab;
+	color: red;
+	font-size: 30;
+}
+
