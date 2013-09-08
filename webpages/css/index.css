@@ -83,7 +83,11 @@ body
 {
 	padding-left:10%;
 	font-family: museo_slab; 
-	color: #848484;
-	font-size: 30; 
+	font-size: 25; 
+}
+
+#link
+{
+	padding-left:10%; 
 }
 

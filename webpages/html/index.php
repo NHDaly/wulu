@@ -7,14 +7,8 @@
 	</head>
 	<body>
 	
-		<?php
-			$warning=$_GET['warning'];
-			if($warning==1)
-			{
-				echo "<span id=\"warning\"> Sorry, the URL you have given does not have a RSS feed for you to subscribe to. </span>";
-			}
+		<span id="warning"> Sorry, the URL you have given does not have a RSS feed for you to subscribe to. </span>;
 
-		?>
 
 
 		<div id="url_form_wrapper"> 

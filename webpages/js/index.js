@@ -15,25 +15,25 @@ $(document).ready(function(){
 
 	});
 
-	$("#url_submit").click(function(){
-		if(isValidURL($("#url_input").val()))
-		{
-			alert("is valid url!");
-		}
-		else
-		{
-			alert("is invalid url!");
-		}
+	$("#url_submit").click(function(){ 
 
+		
 		$("#loader").show();
+		$("#warning").hide();
 
 		$.ajax({
 			type: "POST",
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
 			success: function(ret){
+
+				if(ret=="no_rss")
+				{
+					$("#warning").show();
+					return false;
+				}
 				alert("success!");
-				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a href=\""+ret+"\">"+ret+"</a>");
+				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a id=\"link\" href=\""+ret+"\">"+ret+"</a>");
 
 				$("#loader").hide();
 				return false;
