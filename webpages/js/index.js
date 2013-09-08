@@ -29,6 +29,7 @@ $(document).ready(function(){
 			data: {url: $("#url_input").val()},
 			dataType: "text",
 			success: function(ret){
+				alert(ret);
 				alert("hi");
 				if(ret.toString()=="no_rss")
 				{
