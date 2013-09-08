@@ -1,4 +1,5 @@
 <?php
+
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 # Run python script.
@@ -34,7 +35,6 @@ else #if($count==1)
 
 	if(!$row)
 	{ 
-		echo "creating new directory: ".$directory." <br>";
 		exec('mkdir -p '.$directory); 
 		$insert_podcast="INSERT INTO Podcasts VALUES ('".$folder_name."')";
 		mysql_query($insert_podcast, $db_cxn);
@@ -44,63 +44,29 @@ else #if($count==1)
 
 	$xml_json_str=exec('python ../../scripts/python/createPodcastXml.py '.$url_json_obj[0]);
 	
-	echo 'python ../../scripts/python/createPodcastXml.py '.$url_json_obj[0]."<br>";
 	
 	$xml_json_obj=json_decode($xml_json_str, true);
 
 	if(!$row)
 	{
-		echo "creating new podcast.xml <br>";
 		file_put_contents($directory."/podcast.xml", $xml_json_obj['XML']);
 	}
 
+
 	for($i=0; $i<count($xml_json_obj['episodes']); $i++)
 	{ 
-    # once you have the args to add to database, run this command
-		# ... presumably you'll get this from json or something
-#    $spawnstring = "bash -c 'exec nohup php addeptodb.php ".$folder_name." \"".$xml_json_obj['episodes'][$i]['title']."\" ".$xml_json_obj['episodes'][$i]['site_url']." \"".$xml_json_obj['episodes'][$i]['pub_date']."\" < /dev/null > /dev/null 2>&1 &'";
 
-		$query_episode= "SELECT * FROM Episodes WHERE rss_url='".$folder_name."' AND title='".$xml_json_obj['episodes'][$i]['title']."' AND pub_date='".$xml_json_obj['episodes'][$i]['pub_date']."'";
+		$rss_url=$folder_name;
+		$title=$xml_json_obj['episodes'][$i]['title'];
+		$pub_date=$xml_json_obj['episodes'][$i]['pub_date'];
+		$site_url=$xml_json_obj['episodes'][$i]['site_url'];
 
-		#echo $query_episode."<br>";
+		exec("php ./episode.php \"".$directory."\" \"".$rss_url."\" \"".$title."\" \"".$site_url."\" \"".$pub_date."\" &> /dev/null &");
 
-		$result=mysql_query($query_episode, $db_cxn);
-
-		$row=mysql_fetch_array($result);
-
-
-		if(!$row)
-		{
-			$spawnstring = 'php addEpToDb.php '.$folder_name.' "'.$xml_json_obj['episodes'][$i]['title'].'" '.$xml_json_obj['episodes'][$i]['site_url'].' "'.$xml_json_obj['episodes'][$i]['pub_date'].'" ';
-
-			#echo $spawnstring."<br>";
-			exec($spawnstring); 
-
-			
-
-			$article_json_str = exec('python ../../scripts/python/urlToArticleText.py ' . $xml_json_obj['episodes'][$i]['site_url']); 
-			$article_json_obj = json_decode($article_json_str, true);
-			#make sure to check for null
-
-			#echo urlencode($article_json_obj);
-
-
-			$tts_url='http://tts-api.com/tts.mp3?q='.urlencode($article_json_obj);
-			$content = file_get_contents($tts_url);
-			$audio_name=$folder_name."-".preg_replace("/[^A-Za-z0-9]/", '', $xml_json_obj['episodes'][$i]['title']).".mp3";
-			$file = $directory."/".$audio_name;
-			echo $audio_name."<br>";
-			file_put_contents($file, $content);
-			
-			$insert_audio_file_path="UPDATE Episodes SET audio_url='".$file."' WHERE rss_url='".$folder_name."' AND title='".$xml_json_obj['episodes'][$i]['title']."' AND pub_date='".$xml_json_obj['episodes'][$i]['pub_date']."'";
-
-			mysql_query($insert_audio_file_path, $db_cxn); 
-		}
 	}
 
-  
+	
 	header('Location: ./end.php');
-
 
 }
 
