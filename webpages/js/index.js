@@ -30,7 +30,7 @@ $(document).ready(function(){
 			dataType: "text",
 			success: function(ret){
 				alert("hi");
-				if(ret=="no_rss")
+				if(ret.toString()=="no_rss")
 				{
 					alert("no_rss");
 					$("#warning").show();
