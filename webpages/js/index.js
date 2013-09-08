@@ -30,12 +30,10 @@ $(document).ready(function(){
 			data: {url: $("#url_input").val()},
 			success: function(ret){
 				alert(ret); 
-				alert(ret=="no_rss");
-				alert(ret.toString());
+				alert(ret.value=="no_rss");
 
-				alert(ret.toString()=="no_rss");
 				alert("hi");
-				if(ret.toString()=="no_rss")
+				if(ret.value=="no_rss")
 				{
 					alert("no_rss");
 					$("#warning").show();
