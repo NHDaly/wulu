@@ -16,7 +16,7 @@
 
 $query_episode= "SELECT * FROM Episodes WHERE rss_url='".$rss_url."' AND title='".$title."' AND pub_date='".$pub_date."'";
 
-
+echo
 $result=mysql_query($query_episode, $db_cxn) or die($query_episode."<br/><br/>".mysql_error());
 
 $row=mysql_fetch_array($result);
