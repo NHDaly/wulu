@@ -16,7 +16,6 @@
 
 $query_episode= "SELECT * FROM Episodes WHERE rss_url='".$rss_url."' AND title='".$title."' AND pub_date='".$pub_date."'";
 
-echo
 $result=mysql_query($query_episode, $db_cxn) or die($query_episode."<br/><br/>".mysql_error());
 
 $row=mysql_fetch_array($result);
@@ -32,12 +31,13 @@ if(!$row)
 	
 
 	$article_json_str = exec('python ../../scripts/python/urlToArticleText.py ' . $site_url); 
-	$article_json_obj = json_decode($article_json_str, true);
+	$article_json_obj = json_decode($article_json_str);
 	#make sure to check for null
+     
+    #TODO get Unsquashed title
+    $episode_text = urlencode($title).'+,,+'.urlencode($article_json_obj);
 
-
-
-	$tts_url='http://tts-api.com/tts.mp3?q='.urlencode($article_json_obj);
+	$tts_url='http://tts-api.com/tts.mp3?q='.$episode_text;
 	$content = file_get_contents($tts_url);
 	$audio_name=$rss_url."-".preg_replace("/[^A-Za-z0-9]/", '', $title).".mp3";
 	$file = $directory."/".$audio_name;

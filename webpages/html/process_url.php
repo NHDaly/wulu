@@ -65,11 +65,11 @@ else #if($count==1)
 		$pub_date=$xml_json_obj['episodes'][$i]['pub_date'];
 		$site_url=$xml_json_obj['episodes'][$i]['site_url'];
 
-        echo "dir: ".$directory." title: ".$title." articleUrl: ".$site_url." pubData: ".$pub_date."<br>";
+        #echo "dir: ".$directory." title: ".$title." articleUrl: ".$site_url." pubData: ".$pub_date."<br>";
         
         $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$title."' '".$site_url."' '".$pub_date."' &> /dev/null &";
 
-        echo "epCommand: ".$epCommand."<br>";
+        #echo "epCommand: ".$epCommand."<br>";
         
         exec($epCommand);
 
