@@ -2,10 +2,17 @@ import xml.etree.ElementTree as ET
 import json
 from sys import argv
 
-webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts'
+webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/'
 
 def updatePodcastXml(rss_url, title, audio_filename, pubDate):
    # load current xml file
+
+   with open('/var/www/podcasts/argsout.txt', 'w') as argsoutFile:
+     argsoutFile.write(str(rss_url)+'\n')
+     argsoutFile.write(str(title)+'\n')
+     argsoutFile.write(str(audio_filename)+'\n')
+     argsoutFile.write(str(pubDate)+'\n')
+
    xmlFileUrl = '/var/www/podcasts/' + rss_url +'/podcast.xml'
    xmlString = ''
    with open(xmlFileUrl, 'r') as xmlFile:
@@ -33,12 +40,17 @@ def updatePodcastXml(rss_url, title, audio_filename, pubDate):
         it_pubDate = ET.SubElement(item, 'pubDate')
         it_pubDate.text = pubDate
 
-   
+     xmlString  = ET.tostring(tree)
+
+   print xmlString
   #overwrite old file
    with open(xmlFileUrl, 'w') as xmlFile:
      xmlFile.write(xmlString)
 
 if __name__ == '__main__':
+    #x = open('/', 'w')
+    #x.write('ha')
+    #x.close()
     rss_url = argv[1]
     title = argv[2]
     audio_filename = argv[3]
