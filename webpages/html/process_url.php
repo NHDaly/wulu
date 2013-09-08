@@ -75,7 +75,8 @@ else #if($count==1)
 
 	}
 
-	
+
+echo "http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/".$folder_name."/podcast.xml";
 #	header('Location: ./end.php');
 
 }

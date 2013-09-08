@@ -30,9 +30,12 @@ $(document).ready(function(){
 			data: {url: $("#url_input").val()},
 			success: function(ret){
 				alert("success!");
-				$("#result").text("Thank you for using Wulu. The link to your podcast is: <br>"+ret);
+				$("#result").text("Thank you for using Wulu. The link to your podcast is: <br> <a href=\""+ret+"\">"+ret+"</a>");
+				return false;
 			}
 		});
+
+		return false;
 
 
 	});
