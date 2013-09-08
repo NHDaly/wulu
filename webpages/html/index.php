@@ -23,6 +23,7 @@
 				<input id="url_input" type="text" name="url" value="Input URL">
 				<span id="url_submit_button">Submit</span>
 				<input id="url_submit" type="submit">
+				<img src="../images/loader.gif" id="loader">
 			</form>
 			<span id="result"> </span>
 	</body>

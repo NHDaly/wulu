@@ -7,6 +7,7 @@ function isValidURL(url)
 
 $(document).ready(function(){
 
+	$("#loader").hide();
 	$("#url_input").click(function(){
 		$("#url_input").attr("value", "");
 		$("#url_input").css("color", "black");
@@ -24,13 +25,17 @@ $(document).ready(function(){
 			alert("is invalid url!");
 		}
 
+		$("#loader").show();
+
 		$.ajax({
 			type: "POST",
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
 			success: function(ret){
 				alert("success!");
-				$("#result").text("Thank you for using Wulu. The link to your podcast is: <br> <a href=\""+ret+"\">"+ret+"</a>");
+				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a href=\""+ret+"\">"+ret+"</a>");
+
+				$("#loader").hide();
 				return false;
 			}
 		});
