@@ -1,7 +1,7 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
+#error_reporting(E_ALL);
+#ini_set('display_errors', 'On');
 # Run python script.
 $url = $_POST["url"];
 $url_json_str = exec('python ../../scripts/python/getFeedsFromUrl.py ' . $url); 
@@ -75,3 +75,4 @@ else #if($count==1)
 
 
 ?>
+
