@@ -24,6 +24,17 @@ $(document).ready(function(){
 			alert("is invalid url!");
 		}
 
+		$.ajax({
+			type: "POST",
+			url: "process_url.php",
+			data: {url: $("#url_input").val()},
+			success: function(ret){
+				alert("success!");
+				$("#result").text("Thank you for using Wulu. The link to your podcast is: <br>"+ret);
+			}
+			return false;
+		});
+
 
 	});
 
