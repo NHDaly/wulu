@@ -11,8 +11,8 @@ $count=count($url_json_obj);
 
 #assume count is one
 if($count==0)
-{ 
-	header('Location: ./index.php?warning=1');
+{
+	echo "no_rss";
 }
 else #if($count==1)
 {

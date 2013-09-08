@@ -23,6 +23,7 @@
 body
 {
 	background-image: url('../images/gradient_blue.jpg');
+	background-repeat: no-repeat;
 	background-size: 100%;
 	padding: 0;
 	margin: 0;
@@ -81,9 +82,15 @@ body
 
 #result
 {
+	border: 3px solid #848484;
+	border-radius: 5px;
 	padding-left:10%;
 	font-family: museo_slab; 
-	color: #848484;
-	font-size: 30; 
+	font-size: 25; 
+}
+
+#link
+{
+	padding-left:10%; 
 }
 

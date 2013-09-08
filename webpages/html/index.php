@@ -1,21 +1,14 @@
 <html>
 	<head>
-		<title>Our Hack</title>
+		<title>WuLu Podify</title>
 		<link rel="stylesheet" type="text/css" href="../css/index.css"/>
 		<script src="../js/jquery-1.10.1.min.js"></script>
 		<script src="../js/index.js"></script>
 	</head>
 	<body>
 	
-		<?php
-			$warning=$_GET['warning'];
-			if($warning==1)
-			{
-				echo "<span id=\"warning\"> Sorry, the URL you have given does not have a RSS feed for you to subscribe to. </span>";
-			}
-
-		?>
-
+		
+		<span id="warning"> Sorry, the URL you have given does not have a RSS feed for you to subscribe to. </span> 
 
 		<div id="url_form_wrapper"> 
 		</div>
@@ -26,6 +19,8 @@
 				<img src="../images/loader.gif" id="loader">
 			</form>
 			<span id="result"> </span>
+
+			<img src="../images/catbadge.jpeg" id="cat">
 	</body>
 
 </html>

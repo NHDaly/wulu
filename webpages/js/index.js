@@ -7,7 +7,10 @@ function isValidURL(url)
 
 $(document).ready(function(){
 
-	$("#loader").hide();
+	$("#loader").hide(); 
+	$("#warning").hide();
+	$("#cat").hide();
+
 	$("#url_input").click(function(){
 		$("#url_input").attr("value", "");
 		$("#url_input").css("color", "black");
@@ -16,13 +19,12 @@ $(document).ready(function(){
 	});
 
 	$("#url_submit").click(function(){
-		if(isValidURL($("#url_input").val()))
+
+
+		if($("#url_input").val()=="catbadge")
 		{
-			alert("is valid url!");
-		}
-		else
-		{
-			alert("is invalid url!");
+			$("#cat").show();
+			return false;
 		}
 
 		$("#loader").show();
@@ -32,8 +34,12 @@ $(document).ready(function(){
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
 			success: function(ret){
+				if(ret=="no_rss")
+				{
+					$("#warning").show();
+				}
 				alert("success!");
-				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a href=\""+ret+"\">"+ret+"</a>");
+				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a id=\"link\" href=\""+ret+"\">"+ret+"</a>");
 
 				$("#loader").hide();
 				return false;
