@@ -34,7 +34,6 @@ $(document).ready(function(){
 					$("#warning").show();
 					return false;
 				}
-				alert("success!");
 				$("#result").html("Thank you for using Wulu. The link to your podcast is: <br> <a id=\"link\" href=\""+ret+"\">"+ret+"</a>");
 
 				$("#loader").hide();
