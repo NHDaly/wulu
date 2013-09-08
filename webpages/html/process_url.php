@@ -1,7 +1,7 @@
 <?php
 
-#error_reporting(E_ALL);
-#ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
 # Run python script.
 $url = $_POST["url"];
 $url_json_str = exec('python ../../scripts/python/getFeedsFromUrl.py ' . $url); 
@@ -55,7 +55,9 @@ else #if($count==1)
 	}
 
 
-	for($i=0; $i<count($xml_json_obj['episodes']); $i++)
+	#for($i=0; $i<count($xml_json_obj['episodes']); $i++)
+     
+	for($i=0; $i<min(5,count($xml_json_obj['episodes'])); $i++)
 	{ 
 
 		$rss_url=$folder_name;
