@@ -32,7 +32,6 @@ $(document).ready(function(){
 				alert("success!");
 				$("#result").text("Thank you for using Wulu. The link to your podcast is: <br>"+ret);
 			}
-			return false;
 		});
 
 
