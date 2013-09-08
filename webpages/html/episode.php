@@ -47,7 +47,7 @@ if(!$row)
 
 	mysql_query($insert_audio_file_path, $db_cxn) or die($query_episode."<br/><br/>".mysql_error()); 
 
-	exec("python updatePodcastWithDatabase.py ".$rss_url." ".$title." ".$audio_name." ".$pub_date);
+	exec("python updatePodcastWithDatabase.py ".$rss_url." '".$title."' ".$audio_name." '".$pub_date."'");
 }
 
 
