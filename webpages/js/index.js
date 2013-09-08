@@ -23,13 +23,17 @@ $(document).ready(function(){
 		$("#loader").show();
 		$("#warning").hide();
 
-		$.ajax({
+		$.ajax({ 
+			dataType: "text",
 			type: "POST",
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
-			dataType: "text",
 			success: function(ret){
-				alert(ret);
+				alert(ret); 
+				alert(ret=="no_rss");
+				alert(ret.toString());
+
+				alert(ret.toString()=="no_rss");
 				alert("hi");
 				if(ret.toString()=="no_rss")
 				{
