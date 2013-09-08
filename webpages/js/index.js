@@ -23,19 +23,14 @@ $(document).ready(function(){
 		$("#loader").show();
 		$("#warning").hide();
 
-		$.ajax({ 
-			dataType: "text",
+		$.ajax({
 			type: "POST",
 			url: "process_url.php",
 			data: {url: $("#url_input").val()},
 			success: function(ret){
-				alert(ret); 
-				alert(ret.value=="no_rss");
 
-				alert("hi");
-				if(ret.value=="no_rss")
+				if(ret=="no_rss")
 				{
-					alert("no_rss");
 					$("#warning").show();
 					return false;
 				}
@@ -44,11 +39,6 @@ $(document).ready(function(){
 
 				$("#loader").hide();
 				return false;
-			},
-			error: function(a,b,c)
-			{
-				alert(c);
-
 			}
 		});
 
