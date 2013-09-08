@@ -27,7 +27,8 @@ else #if($count==1)
 	$database="wuludb"; 
 	$db_cxn = mysql_connect('localhost', $db_user, $db_password); 
 	@mysql_select_db($database, $db_cxn) or die('Could not connect: ' . mysql_error());  
-
+  
+  $folder_name = mysql_real_escape_string($folder_name);
 	$query_podcast="SELECT * FROM Podcasts WHERE rss_url='".$folder_name."'";	
 
 	$result=mysql_query($query_podcast, $db_cxn) or die($query_podcast."<br/><br/>".mysql_error());
