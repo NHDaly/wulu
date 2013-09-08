@@ -30,7 +30,7 @@ else #if($count==1)
 
 	$query_podcast="SELECT * FROM Podcasts WHERE rss_url='".$folder_name."'";	
 
-	$result=mysql_query($query_podcast, $db_cxn) ) or die($query_podcast."<br/><br/>".mysql_error());;
+	$result=mysql_query($query_podcast, $db_cxn) or die($query_podcast."<br/><br/>".mysql_error());
 	$row=mysql_fetch_array($result);
 
 	if(!$row)
