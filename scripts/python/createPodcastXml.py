@@ -28,7 +28,10 @@ def createPodcastXml(url_addr):
            # itemsFile.write(ET.tostring(item)+'\n')
            articleTitle = item.find('title').text
            articleUrl = item.find('link').text
-           articlePubDate = item.find('pubDate').text
+           try: 
+               articlePubDate = item.find('pubDate').text
+           except:
+               articlePubDate = 'BAD_DATE' 
            articleList.append({'title':articleTitle,'site_url':articleUrl,'pub_date':articlePubDate}) 
            chan.remove(item)
            #append to title    

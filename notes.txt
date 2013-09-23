@@ -19,3 +19,8 @@ mechanical turk
 ask people to read articles for us.
 
 Google Text to Speech Engine (Android?)
+
+
+----> Twill scrapes article for html
+
+nuance.com --> http interface IF IT's for mobile
