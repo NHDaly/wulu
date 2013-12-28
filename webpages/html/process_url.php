@@ -17,7 +17,7 @@ if($count==0)
 else #if($count==1)
 {
 
-	$directory="/var/www/podcasts/";
+	$directory="/vagrant/website/podcasts/";
   $folder_name=preg_replace("/[^A-Za-z0-9 ]/", '', $url_json_obj[0]);
 
 	$directory=$directory.$folder_name;	
@@ -36,7 +36,7 @@ else #if($count==1)
 
 	if(!$row)
 	{ 
-		mkdir($directory); 
+		mkdir($directory) or die ("mkdir(".$directory."): "."error"); 
 		$insert_podcast="INSERT INTO Podcasts VALUES ('".$folder_name."')";
 		mysql_query($insert_podcast, $db_cxn) or die($insert_podcast."<br/><br/>".mysql_error());
 
@@ -55,28 +55,52 @@ else #if($count==1)
 	}
 
 
-	#for($i=0; $i<count($xml_json_obj['episodes']); $i++)
-     
+    ######OLD NON FORKING CODE FROM HACKATHON###### 
 	for($i=0; $i<min(5,count($xml_json_obj['episodes'])); $i++)
 	{ 
 
 		$rss_url=$folder_name;
 		$title=$xml_json_obj['episodes'][$i]['title'];
 		$pub_date=$xml_json_obj['episodes'][$i]['pub_date'];
-		$site_url=$xml_json_obj['episodes'][$i]['site_url'];
-
-        #echo "dir: ".$directory." title: ".$title." articleUrl: ".$site_url." pubData: ".$pub_date."<br>";
-        
-        $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$title."' '".$site_url."' '".$pub_date."' &> /dev/null &";
-
-        #echo "epCommand: ".$epCommand."<br>";
-        
-        exec($epCommand);
-
+		$site_url=$xml_json_obj['episodes'][$i]['site_url']; 
+        $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$title."' '".$site_url."' '".$pub_date."' &> /dev/null &"; 
+        exec($epCommand); 
 	}
 
 
-echo "http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/".$folder_name."/podcast.xml";
+   #######NON-WORING FORKING CODE (apparently pcntl is not installed?) ####### 
+	#for($i=0; $i<min(5,count($xml_json_obj['episodes'])); $i++)
+	#{ 
+    #    $pid = pcntl_fork();
+    #    if ($pid == -1) 
+    #    {
+    #        die('could not fork');
+    #    } 
+    #    else if ($pid) 
+    #    {
+    #        // we are the parent
+    #    } 
+    #    else 
+    #    {
+    #        // we are the child
+    #        $rss_url=$folder_name;
+    #        $title=$xml_json_obj['episodes'][$i]['title'];
+    #        $pub_date=$xml_json_obj['episodes'][$i]['pub_date'];
+    #        $site_url=$xml_json_obj['episodes'][$i]['site_url']; 
+    #        $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$title."' '".$site_url."' '".$pub_date."' &> /dev/null &"; 
+    #        exec($epCommand); 
+    #        exit();
+    #    }
+
+
+
+	#}
+
+
+
+
+#echo "http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/".$folder_name."/podcast.xml";
+echo "http://75.39.13.254/podcasts/".$folder_name."/podcast.xml";
 #	header('Location: ./end.php');
 
 }

@@ -1,0 +1,6 @@
+- parallel processing
+- regular updates
+- allow users to choose between multiple rss feeds
+
+
+

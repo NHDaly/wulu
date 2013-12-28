@@ -2,18 +2,22 @@ import xml.etree.ElementTree as ET
 import json
 from sys import argv
 
-webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/'
+webUrl = 'http://75.39.13.254/podcasts'
+#webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts'
+
+site_dir = '/vagrant/website'
+#site_dir = '/var/www'
 
 def updatePodcastXml(rss_url, title, audio_filename, pubDate):
    # load current xml file
 
-   with open('/var/www/podcasts/argsout.txt', 'w') as argsoutFile:
+   with open(site_dir+'/podcasts/argsout.txt', 'w') as argsoutFile:
      argsoutFile.write(str(rss_url)+'\n')
      argsoutFile.write(str(title)+'\n')
      argsoutFile.write(str(audio_filename)+'\n')
      argsoutFile.write(str(pubDate)+'\n')
 
-   xmlFileUrl = '/var/www/podcasts/' + rss_url +'/podcast.xml'
+   xmlFileUrl = site_dir+'/podcasts/' + rss_url +'/podcast.xml'
    xmlString = ''
    with open(xmlFileUrl, 'r') as xmlFile:
      xmlString=''.join([line for line in xmlFile])
@@ -29,7 +33,7 @@ def updatePodcastXml(rss_url, title, audio_filename, pubDate):
      it_title.text = title
      
      #TODO Find full audio web url
-     audio_web_url = webUrl + rss_url +'/'+ audio_filename
+     audio_web_url = webUrl +'/'+ rss_url +'/'+ audio_filename
 
      #TODO Find length of audio file -- should we do this in php when adding to database?
      it_enclosure = ET.SubElement(item, 'enclosure', {'url':audio_web_url, 'length':"2000000",

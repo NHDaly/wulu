@@ -9,7 +9,7 @@
 	
 		<span id="warning"> Sorry, the URL you have given does not have a RSS feed for you to subscribe to. </span>;
 
-
+        <img src="../images/wulupodify.png" id="logo">
 
 		<div id="url_form_wrapper"> 
 		</div>

@@ -63,9 +63,9 @@ body
 {
 	font-family: lobster;
 	font-size: 40;
-	color: #848484;
+	color:black; 
 	padding: 3px;
-	border: 2px solid #848484;
+	border: 2px solid black; 
 	border-radius: 5px;
 	cursor: pointer;
 }
@@ -77,6 +77,14 @@ body
 	font-family: museo_slab;
 	color: red;
 	font-size: 30;
+}
+
+#logo
+{
+    width: 450;
+    position:absolute;
+    top: 60px;
+    left: 120px;
 }
 
 #result
