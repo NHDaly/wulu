@@ -1,6 +1,11 @@
 import xml.etree.ElementTree as ET
 import json
 from sys import argv
+import logging
+
+# set up logging errors
+logging.basicConfig(level=logging.DEBUG, filename='/home/vagrant/wulu_errors.log')
+
 
 webUrl = 'http://75.39.13.254/podcasts'
 #webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts'
@@ -8,59 +13,74 @@ webUrl = 'http://75.39.13.254/podcasts'
 site_dir = '/vagrant/website'
 #site_dir = '/var/www'
 
-def updatePodcastXml(rss_url, title, audio_filename, pubDate):
+def updatePodcastXml(rss_url, audio_filename, xmlItem):
    # load current xml file
-
-   with open(site_dir+'/podcasts/argsout.txt', 'w') as argsoutFile:
-     argsoutFile.write(str(rss_url)+'\n')
-     argsoutFile.write(str(title)+'\n')
-     argsoutFile.write(str(audio_filename)+'\n')
-     argsoutFile.write(str(pubDate)+'\n')
 
    xmlFileUrl = site_dir+'/podcasts/' + rss_url +'/podcast.xml'
    xmlString = ''
    with open(xmlFileUrl, 'r') as xmlFile:
-     xmlString=''.join([line for line in xmlFile])
+       xmlString=''.join([line for line in xmlFile])
 
-     tree = ET.fromstring(xmlString)
+   tree = ET.fromstring(xmlString)
      
-     chan = tree.find('channel')
-     
-     item = ET.SubElement(chan, 'item')
-     
-     #add subinfor for item
-     it_title = ET.SubElement(item, 'title')
-     it_title.text = title
-     
-     #TODO Find full audio web url
-     audio_web_url = webUrl +'/'+ rss_url +'/'+ audio_filename
+   chan = tree.find('channel')
+   
+   item = ET.SubElement(chan, 'item')
+   
+   #add subinfor for item
+   title = ET.SubElement(item, 'title')
+   title.text = xmlItem['title']
+   
+   author = ET.SubElement(item, 'ns0:author')
+   author.text = xmlItem['author']
 
-     #TODO Find length of audio file -- should we do this in php when adding to database?
-     it_enclosure = ET.SubElement(item, 'enclosure', {'url':audio_web_url, 'length':"2000000",
-                                                      'type':'audio/x-mp3'})
-     #TODO guid
-     
-     if pubDate: 
-        it_pubDate = ET.SubElement(item, 'pubDate')
-        it_pubDate.text = pubDate
+   summary = ET.SubElement(item, 'ns0:summary')
+   summary.text = xmlItem['description']
 
-     xmlString  = ET.tostring(tree)
+   subtitle = ET.SubElement(item, 'subtitle')
+   subtitle.text = xmlItem['subtitle']
+
+   description = ET.SubElement(item, 'description')
+   description.text = xmlItem['description']
+
+   #TODO guid
+   guid = ET.SubElement(item, 'guid')
+   guid.text = xmlItem['guid']
+
+   #TODO Find full audio web url
+   audio_web_url = webUrl +'/'+ rss_url +'/'+ audio_filename
+
+   #TODO Find length of audio file -- should we do this in php when adding to database?
+   length = 2000000
+   enclosure = ET.SubElement(item, 'enclosure')
+   enclosure.set('url', audio_web_url)
+   enclosure.set('length', str(length))
+   enclosure.set('type', 'audio/x-mp3')
+
+   pubDate = ET.SubElement(item, 'pubDate')
+   pubDate.text = xmlItem['pubDate']
+
+   duration = ET.SubElement(item, 'ns0:duration')
+   duration.text = str(length)
+
+
+   xmlString = ET.tostring(tree)
 
    print xmlString
   #overwrite old file
    with open(xmlFileUrl, 'w') as xmlFile:
-     xmlFile.write(xmlString)
+       xmlFile.write('''<?xml version="1.0" encoding="UTF-8"?>''')
+       xmlFile.write(xmlString)
+
 
 if __name__ == '__main__':
-    #x = open('/', 'w')
-    #x.write('ha')
-    #x.close()
-    rss_url = argv[1]
-    title = argv[2]
-    audio_filename = argv[3]
-    if len(argv) > 4:
-        pubDate = argv[4]
-    else:
-        pubDate = None
-    updatePodcastXml(rss_url, title, audio_filename, pubDate)
+    try:
+        rss_url = argv[1]
+        audio_filename = argv[2]
+        itemXMLData_json_str = argv[3]
+        xmlItem = json.loads(itemXMLData_json_str)
+
+        updatePodcastXml(rss_url, audio_filename, xmlItem)
+    except:
+        logging.exception('In file, '+ argv[0] +', exception:')
 

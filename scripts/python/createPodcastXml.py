@@ -2,6 +2,7 @@ import urllib2 as url
 import xml.etree.ElementTree as ET
 import json
 from sys import argv
+import logging
 
 appName = 'WuLu'
 
@@ -18,7 +19,7 @@ def getPodcastXmlFromUrl(url_addr):
     return string
 
 def getChildren(elt, tag):
-    return [x for x in elt if tag in x.tag] 
+    return [x for x in elt if x.tag[-len(tag):] == tag] 
 
 def getChild(elt, tag):
     tag_list = getChildren(elt, tag)
@@ -27,6 +28,17 @@ def getChild(elt, tag):
     return tag_list[0]
 
 
+def recursiveFindChildren(elt, tag):
+    children = []
+    recursiveFindChildren_helper(elt, tag, children)
+    return children
+
+def recursiveFindChildren_helper(elt, tag, children):
+    children += getChildren(elt, tag)
+    for child in elt:
+        recursiveFindChildren_helper(child, tag, children)
+
+        
 
 # ====== XML Searching helpers =======
 
@@ -98,10 +110,11 @@ def loadPodcastXMLData(tree):
     xmlData = PodcastXMLData()
     
     # Find channel. ... really should be the first element, though.
-    while 'channel' not in tree[0].tag:
-    	tree = tree[0]
+    rss = tree
+    while 'channel' not in rss[0].tag:
+    	rss = rss[0]
     	
-    chan = tree[0] # really should only be one chan...
+    chan = rss[0] # really should only be one chan...
 
     title = getChild(chan, 'title')
     xmlData.title = title.text + ' ' + appName + ' Audio Podcast'
@@ -112,7 +125,7 @@ def loadPodcastXMLData(tree):
     xmlData.category = findCategory(chan)
     xmlData.copyright = findCopyright(chan)
     
-    for item in getChildren(chan, 'item'):
+    for item in recursiveFindChildren(tree, 'item'):
         xmlItem = ItemXMLData()
         xmlItem.title = getChild(item, 'title').text
         xmlItem.link = findLink(item)
@@ -220,10 +233,12 @@ def createPodcastXml(url_addr):
     return json.dumps({'XML':xml_out, 'episodes':articleList})
 
 
-if __name__ == "__main__": 
-    #try:
+# set up logging errors
+logging.basicConfig(level=logging.DEBUG, filename='/home/vagrant/wulu_errors.log')
+
+if __name__ == '__main__':
+    try:
       print createPodcastXml(argv[1])
-      #print argv[1]
-    #except :
-     # print "ERRORRRRR!"
+    except:
+        logging.exception('In file, '+ argv[0] +', exception:')
 

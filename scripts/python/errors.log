@@ -1,0 +1,24 @@
+ERROR:root:In file, updatePodcastWithDatabase.py, exception:
+Traceback (most recent call last):
+  File "updatePodcastWithDatabase.py", line 82, in <module>
+    updatePodcastXml(rss_url, audio_filename, xmlItem)
+  File "updatePodcastWithDatabase.py", line 24, in updatePodcastXml
+    tree = ET.fromstring(xmlString)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1301, in XML
+    parser.feed(text)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1643, in feed
+    self._raiseerror(v)
+  File "/usr/lib/python2.7/xml/etree/ElementTree.py", line 1507, in _raiseerror
+    raise err
+ParseError: unbound prefix: line 1, column 383
+ERROR:root:In file, createPodcastXml.py, exception:
+Traceback (most recent call last):
+  File "createPodcastXml.py", line 229, in <module>
+    print createPodcastXml(argv[1])
+  File "createPodcastXml.py", line 216, in createPodcastXml
+    xmlData = loadPodcastXMLData(tree)
+  File "createPodcastXml.py", line 118, in loadPodcastXMLData
+    xmlItem.title = getChild(item, 'title').text
+  File "createPodcastXml.py", line 27, in getChild
+    raise Exception, 'Tag: ' + tag + ' not found in elt: ' + str(elt)
+Exception: Tag: title not found in elt: <Element '{http://purl.org/rss/1.0/}items' at 0x99e432c>

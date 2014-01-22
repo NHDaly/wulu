@@ -56,14 +56,13 @@ else #if($count==1)
 
 
     ######OLD NON FORKING CODE FROM HACKATHON###### 
+
 	for($i=0; $i<min(5,count($xml_json_obj['episodes'])); $i++)
 	{ 
-
 		$rss_url=$folder_name;
-		$title=$xml_json_obj['episodes'][$i]['title'];
-		$pub_date=$xml_json_obj['episodes'][$i]['pub_date'];
-		$site_url=$xml_json_obj['episodes'][$i]['site_url']; 
-        $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$title."' '".$site_url."' '".$pub_date."' &> /dev/null &"; 
+        $episode_json = $xml_json_obj['episodes'][$i];
+        $episode_json_str = json_encode($episode_json);
+        $epCommand = "php ./episode.php '".$directory."' '".$rss_url."' '".$episode_json_str."' &> /dev/null &"; 
         exec($epCommand); 
 	}
 

@@ -2,9 +2,13 @@
 
 	$directory=$argv[1];
 	$rss_url=$argv[2];
-	$title=$argv[3];
-	$site_url=$argv[4];
-	$pub_date=$argv[5];
+
+    $episode_json_str=$argv[3];
+	$episode_json_obj=json_decode($episode_json_str, true);
+
+	$title=$episode_json_obj['title'];
+	$site_url=$episode_json_obj['link'];
+	$pub_date=$episode_json_obj['pubDate'];
 
 	$db_user="root";
 	$db_password="pennapps2013";
@@ -48,7 +52,7 @@ if(!$row)
 
 	mysql_query($insert_audio_file_path, $db_cxn) or die($query_episode."<br/><br/>".mysql_error()); 
 
-	exec("python ../../scripts/python/updatePodcastWithDatabase.py ".$rss_url." '".$title."' ".$audio_name." '".$pub_date."'");
+	exec("python ../../scripts/python/updatePodcastWithDatabase.py ".$rss_url." '".$audio_name."' '".$episode_json_str."'");
 }
 
 
