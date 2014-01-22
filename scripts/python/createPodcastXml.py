@@ -96,7 +96,6 @@ class ItemXMLData(object):
 def loadPodcastXMLData(tree):
 
     xmlData = PodcastXMLData()
-    articleList=[]
     
     # Find channel. ... really should be the first element, though.
     while 'channel' not in tree[0].tag:
@@ -121,12 +120,9 @@ def loadPodcastXMLData(tree):
         if xmlItem.pubDate == '':
             xmlItem.pubDate = 'BAD_DATE' 
 
-        articleList.append({'title':xmlItem.title,
-                            'site_url':xmlItem.link,
-                            'pub_date':xmlItem.pubDate}) 
         xmlData.children.append(xmlItem)
 
-    return xmlData, articleList
+    return xmlData
 
 def createNewPodcastFromXMLData(xmlData):
     
@@ -167,6 +163,9 @@ def createNewPodcastFromXMLData(xmlData):
         category = ET.SubElement(chan, 'itunes:category')
         category.text = xmlData.category
 
+
+    # CHILDREN ARE ENTERED IN A DIFFERENT SCRIPT!
+    '''
     for child in xmlData.children:
         
         item = ET.SubElement(chan, 'item')
@@ -199,7 +198,7 @@ def createNewPodcastFromXMLData(xmlData):
 
         duration = ET.SubElement(item, 'itunes:duration')
         duration.text = child.duration
-
+    '''
 
     xml_out = ''    
     xml_out += xml_top_str_c + '\n'
@@ -213,10 +212,11 @@ def createPodcastXml(url_addr):
     xmlString=getPodcastXmlFromUrl(url_addr)
     tree = ET.fromstring(xmlString)
     
-    xmlData, articleList = loadPodcastXMLData(tree)
+    xmlData = loadPodcastXMLData(tree)
 
     xml_out = createNewPodcastFromXMLData(xmlData)
-
+    
+    articleList = [x.__dict__ for x in xmlData.children]
     return json.dumps({'XML':xml_out, 'episodes':articleList})
 
 
