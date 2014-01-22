@@ -234,7 +234,7 @@ def createPodcastXml(url_addr):
 
 
 # set up logging errors
-logging.basicConfig(level=logging.DEBUG, filename='/home/vagrant/wulu_errors.log')
+logging.basicConfig(level=logging.DEBUG, filename='/vagrant/wulu_errors.log')
 
 if __name__ == '__main__':
     try:

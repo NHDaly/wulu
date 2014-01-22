@@ -4,7 +4,7 @@ from sys import argv
 import logging
 
 # set up logging errors
-logging.basicConfig(level=logging.DEBUG, filename='/home/vagrant/wulu_errors.log')
+logging.basicConfig(level=logging.DEBUG, filename='/vagrant/wulu_errors.log')
 
 
 webUrl = 'http://75.39.13.254/podcasts'
