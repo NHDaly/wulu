@@ -82,5 +82,5 @@ if __name__ == '__main__':
 
         updatePodcastXml(rss_url, audio_filename, xmlItem)
     except:
-        logging.exception('In file, '+ argv[0] +', exception:')
+        logging.exception('In file, '+ argv[0] +', json: '+itemXMLData_json_str+', exception:')
 
