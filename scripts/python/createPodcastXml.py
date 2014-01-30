@@ -253,5 +253,5 @@ if __name__ == '__main__':
     try:
       print createPodcastXml(argv[1])
     except:
-        logging.exception('In file, '+ argv[0] +', exception:')
+        logging.exception('In file, '+ argv[0] +', On '+ time.strftime("%d/%m/%Y")+' '+time.strftime("%H:%M:%S")  +', exception:')
 

@@ -5,6 +5,7 @@ from updatePodcastWithDatabase import site_dir
 import json
 import urllib2
 import logging
+import time
 
 # set up logging errors
 logging.basicConfig(level=logging.DEBUG, filename='/vagrant/wulu_errors.log')
@@ -45,6 +46,10 @@ def getArticleTextFromGoose(url):
             raw_html = response.read()
             a = g.extract(raw_html=raw_html)
             cleanText = a.cleaned_text
+            if cleanText == '':
+                print "Cookie request failed"
+
+            else: print "Cookie request succeeded"
         except:
             pass
 
@@ -68,14 +73,14 @@ if __name__ == "__main__":
     try: 
         cleantext = getArticleTextFromGoose(argv[1])
     except:
-        logging.exception('In file, '+ argv[0] +', opening, "'+argv[1]+'", exception. argv: '+str(argv))
+        logging.exception('In file, '+ argv[0] +', opening, "'+argv[1]+'", On '+ time.strftime("%d/%m/%Y")+' '+time.strftime("%H:%M:%S")  +', exception. argv: '+str(argv))
 
     try:
         if not cleantext:
             print 'trying readability'
             cleantext = getArticleTextFromReadability(argv[1])
     except:
-        logging.exception('In file, '+ argv[0] +', opening, "'+argv[1]+'", exception. argv: '+str(argv))
+        logging.exception('In file, '+ argv[0] +', opening, "'+argv[1]+'", On '+ time.strftime("%d/%m/%Y")+' '+time.strftime("%H:%M:%S")  +', exception. argv: '+str(argv))
 
     print json.dumps(cleantext)
 
