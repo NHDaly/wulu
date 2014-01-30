@@ -3,4 +3,10 @@
 - allow users to choose between multiple rss feeds
 
 
+- FIX BUGS
+  : still no tts for nytimes
+  : still can't find articles for http://arxiv.org/list/astro-ph/new
+  : still don't display correct episode lengths
+  : what is guid?
+  : Add title to article text before tts
 
