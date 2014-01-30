@@ -65,8 +65,10 @@ def updatePodcastXml(rss_url, audio_filename, xmlItem):
 
 
    xmlString = ET.tostring(tree)
+   xmlString.replace('><', '>\n<')
 
    print xmlString
+
   #overwrite old file
    with open(xmlFileUrl, 'w') as xmlFile:
        xmlFile.write('''<?xml version="1.0" encoding="UTF-8"?>''')

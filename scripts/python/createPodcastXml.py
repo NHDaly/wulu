@@ -75,6 +75,13 @@ def findCategory(elt):
 def findCopyright(elt):
     return findPossibleTag(elt, ['copyright'])
 
+def findImageLink(elt):
+    try:
+        image = getChild(elt, 'image')
+        return getChild(image, 'url').text
+    except:
+        return ''
+
 def findPubDate(elt):
     return findPossibleTag(elt, ['pubDate'])
 
@@ -124,6 +131,7 @@ def loadPodcastXMLData(tree):
     xmlData.link = findLink(chan)
     xmlData.category = findCategory(chan)
     xmlData.copyright = findCopyright(chan)
+    xmlData.iconArtLink = findImageLink(chan)
     
     for item in recursiveFindChildren(tree, 'item'):
         xmlItem = ItemXMLData()
@@ -171,8 +179,11 @@ def createNewPodcastFromXMLData(xmlData):
     if (xmlData.iconArtLink):
         image  = ET.SubElement(chan, 'itunes:image')
         image.set('href', xmlData.iconArtLink)
+        
+        image = ET.SubElement(chan, 'image')
+        image.set('href', xmlData.iconArtLink)
 
-    if (xmlData.iconArtLink):
+    if (xmlData.category):
         category = ET.SubElement(chan, 'itunes:category')
         category.text = xmlData.category
 
@@ -218,6 +229,8 @@ def createNewPodcastFromXMLData(xmlData):
 
     dump = ET.tostring(tree)
     xml_out += dump
+
+    xml_out.replace('><', '>\n<')
 
     return xml_out
 
