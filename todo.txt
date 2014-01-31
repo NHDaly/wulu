@@ -1,12 +1,18 @@
 - parallel processing
 - regular updates
 - allow users to choose between multiple rss feeds
+- Add title to article text before tts
 
 
 - FIX BUGS
-  : still no tts for nytimes
-  : still can't find articles for http://arxiv.org/list/astro-ph/new
   : still don't display correct episode lengths
   : what is guid?
-  : Add title to article text before tts
+  : doesn't work for aljazeera.com! (It messes up the links, somehow)
+
+- FIXED BUGS
+  : "still can't find article text for http://arxiv.org/list/astro-ph/new"
+        -- sorta fixed. ... duct tape solution. 1/29/14
+
+  : still no tts for nytimes
+
 

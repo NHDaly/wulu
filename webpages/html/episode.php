@@ -8,6 +8,7 @@
 
 	$title=$episode_json_obj['title'];
 	$site_url=$episode_json_obj['link'];
+	#file_put_contents('/vagrant/wulu_errors.log', " site url is:".$site_url, FILE_APPEND);
 	$pub_date=$episode_json_obj['pubDate'];
 
 	$db_user="root";
@@ -35,8 +36,20 @@ if(!$row)
 	
 
 	$article_json_str = exec('python ../../scripts/python/urlToArticleText.py ' . $site_url); 
+
+	if(!$article_json_str)
+	{
+		file_put_contents("/vagrant/wulu_errors.log", $article_json_str);
+		exit;
+	}
 	$article_json_obj = json_decode($article_json_str);
 	#make sure to check for null
+
+	if(!$article_json_str)
+	{
+		file_put_contents('/vagrant/wulu_errors.log', "article coming in empty to php", FILE_APPEND);
+		exit;
+	}
      
     #TODO get Unsquashed title
     #$episode_text = urlencode($title).'+,,,+'.urlencode($article_json_obj);

@@ -2,21 +2,19 @@ import xml.etree.ElementTree as ET
 import json
 from sys import argv
 import logging
+from constants import podcasts_folder_address, site_abs_directory
 
 # set up logging errors
 logging.basicConfig(level=logging.DEBUG, filename='/vagrant/wulu_errors.log')
 
 
-webUrl = 'http://75.39.13.254/podcasts'
-#webUrl = 'http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts'
-
-site_dir = '/vagrant/website'
-#site_dir = '/var/www'
+webUrl = podcasts_folder_address
+site_dir = site_abs_directory
 
 def updatePodcastXml(rss_url, audio_filename, xmlItem):
    # load current xml file
 
-   xmlFileUrl = site_dir+'/podcasts/' + rss_url +'/podcast.xml'
+   xmlFileUrl = site_dir+'podcasts/' + rss_url +'/podcast.xml'
    xmlString = ''
    with open(xmlFileUrl, 'r') as xmlFile:
        xmlString=''.join([line for line in xmlFile])
@@ -48,7 +46,7 @@ def updatePodcastXml(rss_url, audio_filename, xmlItem):
    guid.text = xmlItem['guid']
 
    #TODO Find full audio web url
-   audio_web_url = webUrl +'/'+ rss_url +'/'+ audio_filename
+   audio_web_url = webUrl + rss_url +'/'+ audio_filename
 
    #TODO Find length of audio file -- should we do this in php when adding to database?
    length = 2000000

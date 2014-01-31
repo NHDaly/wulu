@@ -63,7 +63,7 @@ def getArticleTextFromReadability(url):
     import nltk 
     
     html = urllib.urlopen(url).read()
-    cleanHtml = Document(html).summary()
+    cleanHtml = Document(html, min_text_length=1000).summary()
     cleanText = nltk.clean_html(cleanHtml)
     return cleanText
 

@@ -16,8 +16,7 @@ if($count==0)
 }
 else #if($count==1)
 {
-
-	$directory="/vagrant/website/podcasts/";
+	$directory=exec('python ../../scripts/python/constants.py site_abs_directory');
   $folder_name=preg_replace("/[^A-Za-z0-9 ]/", '', $url_json_obj[0]);
 
 	$directory=$directory.$folder_name;	
@@ -98,8 +97,8 @@ else #if($count==1)
 
 
 
-#echo "http://ec2-54-226-137-31.compute-1.amazonaws.com/podcasts/".$folder_name."/podcast.xml";
-echo "http://75.39.13.254/podcasts/".$folder_name."/podcast.xml";
+	$podcasts_addr=exec('python ../../scripts/python/constants.py podcasts_folder_address');
+echo $podcasts_addr.$folder_name."/podcast.xml";
 #	header('Location: ./end.php');
 
 }

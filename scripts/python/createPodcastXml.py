@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 import json
 from sys import argv
 import logging
-
+import time
 appName = 'WuLu'
 
 # ======= HELPER FUNCTIONS =========
@@ -50,8 +50,12 @@ def findPossibleTag(elt, possible_tags):
         if found:
         	break
         try:
-            text = getChild(elt, tag).text
-            found = True
+            children = getChildren(elt, tag)
+            for child in children:
+                text = child.text
+                if (text):
+                    found = True
+                    break
         except:
             pass
 
